@@ -9,14 +9,14 @@
 # only certain parts of the role.
 cm_install_packages: yes
 cm_system_environment: yes
-cm_system_tools: yes
-cm_docker: yes
-cm_install_s3fs: yes
+cm_system_tools: no
+cm_docker: no
+cm_install_s3fs: no
 cm_configure_nginx: yes
 cm_install_proftpd: yes
 cm_install_novnc: no
-cm_install_mpi: yes
-cm_install_r_packages: yes
+cm_install_mpi: no
+cm_install_r_packages: no
 cleanup: no
 # If only_cleanup is set, only the cleanup tasks will run and no other.
 # This is intended to be set as a command line variable.
