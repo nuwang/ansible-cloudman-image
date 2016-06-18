@@ -43,7 +43,19 @@
   copy: src=bash_history dest=~/.bash_history mode=0600
   sudo_user: "{{ default_user }}"
 
+# Image shrink start
+# based: on https://blog.laimbock.com/2013/10/31/how-to-convert-a-non-sparse-image-to-sparse/
+# and https://github.com/NeCTAR-RC/nectar-images/blob/master/scripts/zerodisk.sh
+- name: Copy image shrink script
+  copy: src=zerodisk.sh dest=/tmp/zerodisk.sh mode="u+x"
+
+- name: Zero out the free space to save space in the final image
+  shell: /tmp/zerodisk.sh
+
   # Note that no ssh logins will be possible after this task runs!
   # Hence, must execute all the required deletions as a single command
+- name: Delete ssh login files
+  shell: rm -f /etc/ssh/ssh_host_* /root/.ssh/authorized_keys* "{{ default_user_home }}/.ssh/authorized_keys*"
+
 - name: Delete ssh login files
   shell: rm -f /etc/ssh/ssh_host_* /root/.ssh/authorized_keys* "{{ default_user_home }}/.ssh/authorized_keys*"
